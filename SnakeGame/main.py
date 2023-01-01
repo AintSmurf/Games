@@ -26,7 +26,6 @@ def main():
     # start the game
     flag = True
     food.add_food()
-    score.update_the_score()
     while flag:
         screen.update()
         sleep(0.1)

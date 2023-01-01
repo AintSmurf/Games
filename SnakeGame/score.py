@@ -1,7 +1,5 @@
 from turtle import Turtle
 
-SCORE = -1
-
 
 class Score:
     def __init__(self) -> None:
@@ -11,18 +9,22 @@ class Score:
         self.txt.hideturtle()
         self.txt.color("blue")
         self.txt.penup()
+        self.score = 0
+        self.position_the_score()
 
-    def update_the_score(self):
-        self.txt.clear()
-        global SCORE
-        SCORE += 1
+    def position_the_score(self):
         self.txt.setposition(0, 265)
         self.txt.write(
-            arg=f"score:{SCORE}",
+            arg=f"score:{self.score}",
             move=True,
             align="center",
             font=("arial", 20, "normal"),
         )
+
+    def update_the_score(self):
+        self.txt.clear()
+        self.score += 1
+        self.position_the_score()
 
     def game_over(self):
         self.gameover = Turtle()
