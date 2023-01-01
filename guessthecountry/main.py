@@ -78,7 +78,6 @@ def check_country(name):
         LISTOFCOUNTRIES.remove(name)
         update_score()
         show_on_the_map(DATA_DIC[name], name)
-        ask_question()
 
 
 if __name__ == "__main__":
