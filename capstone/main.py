@@ -1,54 +1,40 @@
+import time
 from turtle import Screen
-from cars import Car, LISTOFCARS
-from time import sleep
 from player import Player
-from score import Score
+from car_manager import CarManager
+from scoreboard import Scoreboard
+
+screen = Screen()
+screen.setup(width=600, height=600)
+screen.tracer(0)
+
+player = Player()
+car_manager = CarManager()
+scoreboard = Scoreboard()
+
+screen.listen()
+screen.onkey(player.go_up, "Up")
+screen.onkey(player.go_down, "Down")
+
+game_is_on = True
+while game_is_on:
+    time.sleep(0.1)
+    screen.update()
+
+    car_manager.create_car()
+    car_manager.move_cars()
+
+    # Detect collision with car
+    for car in car_manager.all_cars:
+        if car.distance(player) < 20:
+            game_is_on = False
+            scoreboard.game_over()
+
+    # Detect successful crossing
+    if player.is_at_finish_line():
+        player.go_to_start()
+        car_manager.level_up()
+        scoreboard.increase_level()
 
 
-def main():
-
-    # initilaize screen
-    screen = Screen()
-    screen.setup(width=800, height=800)
-    screen.bgcolor("gray")
-
-    screen.tracer(0)
-
-    # intilaize objects
-    c = Car()
-    p = Player()
-    s = Score()
-
-    screen.listen()
-
-    screen.onkey(p.up, "Up")
-    screen.onkey(p.down, "Down")
-
-    flag = True
-
-    while flag:
-        sleep(0.1)
-        screen.update()
-
-        c.move()
-        p.move()
-
-        if c.xcor() > -280:
-            c.add_new_car()
-
-        # detect collision with the cars
-        for car in LISTOFCARS:
-            if car.distance(p) < 18:
-                flag = False
-
-        # detect collision with the wall
-        if p.ycor() > 380:
-            s.update()
-            p.restart()
-            c.increase_level()
-
-    screen.exitonclick()
-
-
-if __name__ == "__main__":
-    main()
+screen.exitonclick()

@@ -1,29 +1,31 @@
 from turtle import Turtle
 
-UP = 90
-DOWN = 270
+STARTING_POSITION = (0, -280)
+MOVE_DISTANCE = 10
+FINISH_LINE_Y = 280
 
 
 class Player(Turtle):
-    def __init__(self) -> None:
-        super().__init__(shape="turtle")
-        self.create_turtle()
-
-    def create_turtle(self):
-        self.shapesize(1.5, 1.5)
-        self.color("purple")
+    def __init__(self):
+        super().__init__()
+        self.shape("turtle")
         self.penup()
-        self.goto(0, -380)
-        self.setheading(UP)
+        self.go_to_start()
+        self.setheading(90)
 
-    def restart(self):
-        self.goto(0, -380)
+    def go_up(self):
+        self.setheading(90)
+        self.forward(MOVE_DISTANCE)
 
-    def move(self):
-        self.forward(5)
+    def go_down(self):
+        self.setheading(270)
+        self.forward(MOVE_DISTANCE)
 
-    def up(self):
-        self.setheading(UP)
+    def go_to_start(self):
+        self.goto(STARTING_POSITION)
 
-    def down(self):
-        self.setheading(DOWN)
+    def is_at_finish_line(self):
+        if self.ycor() > FINISH_LINE_Y:
+            return True
+        else:
+            return False
