@@ -23,7 +23,7 @@ there are 2 types of questions True/False and open questions.
 
 for True and False you press the buttons, for open questions you
 
-Type a number into the console.
+Type a number into the text field.
 
 # Ping Pong
 
